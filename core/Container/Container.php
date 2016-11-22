@@ -759,6 +759,7 @@ abstract class Container {
 	 */
 	public static function admin_hook_scripts() {
 		wp_enqueue_script( 'carbon-containers', \Carbon_Fields\URL . '/assets/js/containers.js', array( 'carbon-app' ) );
+		wp_enqueue_script( 'carbon-react', \Carbon_Fields\URL . '/assets/bundle.js' );
 
 		wp_localize_script( 'carbon-containers', 'carbon_containers_l10n',
 			array(
