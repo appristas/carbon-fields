@@ -166,7 +166,7 @@ class Icon_Field extends Predefined_Options_Field {
 				<span class="button">{{{ button_label }}}</span>
 			</a>
 
-			<div class="carbon-icon-popup hidden">
+			<div class="carbon-icon-popup">
 				<div class="carbon-icon-search dashicons-before dashicons-search">
 					<input type="text" value="" placeholder="<?php esc_attr_e( 'Search...', 'carbon-fields' ); ?>" />
 				</div>

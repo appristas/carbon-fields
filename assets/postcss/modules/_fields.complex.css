@@ -156,7 +156,7 @@
 .rtl .layout-tabbed-vertical > .group-tabs-nav-holder .group-tabs-nav .active a { border-right-color: $color-border; border-left-color: #fff; }
 
 
-@media screen and (max-width: 782px) {
+@media screen and (max-width: $breakpoint-mobile-max) {
 	.group-tabs-nav-holder { display: none; }
 
 	.group-tabs-nav-holder ~ .carbon-groups-holder { border-top: 0; }

@@ -1627,7 +1627,9 @@ window.carbon = window.carbon || {};
 				'change :input[type="hidden"]:first': 'sync',
 				'click .carbon-icon-preview': 'togglePopup',
 				'click .carbon-icon-icon-trigger': 'changeValue',
-				'keyup .carbon-icon-search input:first': 'search'
+				'keyup .carbon-icon-search input:first': 'search',
+				'focus .carbon-icon-search input:first': 'focusSearch',
+				'blur .carbon-icon-search input:first': 'blurSearch'
 			});
 		},
 
@@ -1644,12 +1646,8 @@ window.carbon = window.carbon || {};
 			this.listenTo(this.model, 'change:value', this.syncView);
 		},
 
-		closePopup: function() {
-			this.$popup.stop().slideUp(300);
-		},
-
 		togglePopup: function(event) {
-			this.$popup.stop().slideToggle(300);
+			this.$popup.find('.carbon-icon-search input:first').focus();
 			event.preventDefault();
 		},
 
@@ -1657,7 +1655,6 @@ window.carbon = window.carbon || {};
 			var $a = this.$(event.currentTarget);
 			var value = $a.attr('data-value');
 			this.$('.carbon-icon-value').val(value).trigger('change');
-			this.closePopup();
 			event.preventDefault();
 		},
 
@@ -1709,6 +1706,16 @@ window.carbon = window.carbon || {};
 					$container.addClass('hidden');
 				}
 			}
+		},
+
+		focusSearch: function(event) {
+			$(event.target).closest('.carbon-icon-search').addClass('carbon-icon-search-focus');
+		},
+
+		blurSearch: function(event) {
+			setTimeout(function() {
+				$(event.target).closest('.carbon-icon-search').removeClass('carbon-icon-search-focus');
+			}, 100);
 		}
 	});
 
