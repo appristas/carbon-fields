@@ -2,8 +2,6 @@
 
 namespace Carbon_Fields\Field;
 
-use Symfony\Component\Yaml\Yaml;
-
 /**
  * Association field class.
  * Allows selecting and manually sorting entries from various types:
@@ -51,8 +49,9 @@ class Icon_Field extends Predefined_Options_Field {
 
 	public static function get_fontawesome_options() {
 		if ( empty( static::$fontawesome_options_cache ) ) {
-			$data = Yaml::parse( file_get_contents( \Carbon_Fields\DIR . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'fontawesome' . DIRECTORY_SEPARATOR . 'fontawesome.yml' ) );
-			foreach ( $data['icons'] as $icon ) {
+			$data = json_decode( file_get_contents( \Carbon_Fields\DIR . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'fontawesome' . DIRECTORY_SEPARATOR . 'fontawesome.json' ), TRUE );
+
+			foreach ( $data as $icon ) {
 				static::$fontawesome_options_cache[ $icon['id'] ] = array(
 					'name'=>$icon['name'],
 					'id'=>$icon['id'],
@@ -71,14 +70,15 @@ class Icon_Field extends Predefined_Options_Field {
 
 	public static function get_dashicons_options() {
 		if ( empty( static::$dashicons_options_cache ) ) {
-			$data = include( \Carbon_Fields\DIR . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'dashicons' . DIRECTORY_SEPARATOR . 'dashicons.php' );
+			$data = json_decode( file_get_contents( \Carbon_Fields\DIR . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'dashicons' . DIRECTORY_SEPARATOR . 'dashicons.json' ), TRUE );
+
 			foreach ( $data as $icon ) {
-				static::$dashicons_options_cache[ $icon ] = array(
-					'name'=>$icon,
-					'id'=>$icon,
-					'class'=>'dashicons-before ' . $icon,
+				static::$dashicons_options_cache[ $icon['id'] ] = array(
+					'name'=>$icon['name'],
+					'id'=>$icon['id'],
+					'class'=>'dashicons-before ' . $icon['id'],
 					'contents'=>'',
-					'categories'=>array(),
+					'categories'=>$icon['categories'],
 				);
 			}
 		}

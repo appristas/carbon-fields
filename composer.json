@@ -97,7 +97,6 @@
         ]
     },
     "require": {
-        "symfony/yaml": "^2.8.14",
         "composer/installers": "~1.0"
     }
 }
